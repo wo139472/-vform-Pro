@@ -1684,7 +1684,7 @@ export const associatedFields = [
       keyName: '',  //数据键值名称
       label: '',
       // labelAlign: '',
-      defaultValue: '',
+      defaultValue: [],
       placeholder: '',
       columnWidth: '200px',
       size: '',
@@ -1696,7 +1696,7 @@ export const associatedFields = [
       clearable: true,
       filterable: true,
       // allowCreate: false,
-      remote: true,
+      // remote: true,
       automaticDropdown: false,  //自动下拉
       multiple: true,
       multipleLimit: 0,

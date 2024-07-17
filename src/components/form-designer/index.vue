@@ -44,7 +44,7 @@
 
       <el-container class="center-layout-container">
         <el-header class="toolbar-header">
-          <toolbar-panel :designer="designer" :global-dsv="globalDsv" ref="toolbarRef">
+          <toolbar-panel :form_template_id="form_template_id" :detailId="detailId" :designer="designer" :global-dsv="globalDsv" ref="toolbarRef">
             <template v-for="(idx, slotName) in $slots" #[slotName]>
               <slot :name="slotName"></slot>
             </template>
@@ -52,7 +52,7 @@
         </el-header>
         <el-main class="form-widget-main">
           <el-scrollbar class="container-scroll-bar">
-            <v-form-widget :designer="designer" :form-config="designer.formConfig" :global-dsv="globalDsv" ref="formRef">
+            <v-form-widget :form_template_id="form_template_id" :detailId="detailId" :designer="designer" :form-config="designer.formConfig" :global-dsv="globalDsv" ref="formRef">
             </v-form-widget>
           </el-scrollbar>
         </el-main>
@@ -64,7 +64,7 @@
       </div> -->
 
       <el-aside v-show="rightAsideVisible" class="setting-panel">
-        <setting-panel :designer="designer" :selected-widget="designer.selectedWidget"
+        <setting-panel :form_template_id="form_template_id" :detailId="detailId" :designer="designer" :selected-widget="designer.selectedWidget"
                        :form-config="designer.formConfig" :global-dsv="globalDsv" />
       </el-aside>
     </el-container>
@@ -111,7 +111,8 @@
         type: Object,
         default: null,
       },
-
+      form_template_id:[Number,String],
+      detailId:[Number,String],
       /* 禁止显示的组件名称数组 */
       bannedWidgets: {
         type: Array,

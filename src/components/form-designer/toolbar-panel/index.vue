@@ -50,7 +50,7 @@
                :fullscreen="(layoutType === 'H5') || (layoutType === 'Pad')">
       <div>
         <div class="form-render-wrapper" :class="[layoutType === 'H5' ? 'h5-layout' : (layoutType === 'Pad' ? 'pad-layout' : '')]">
-          <VFormRender ref="preForm" :form-json="formJson" :form-data="testFormData" :preview-state="true"
+          <VFormRender ref="preForm" :form_template_id="form_template_id" :detailId="detailId" :form-json="formJson" :form-data="testFormData" :preview-state="true"
                        :option-data="testOptionData" :global-dsv="designerDsv"
                        @appendButtonClick="testOnAppendButtonClick" @buttonClick="testOnButtonClick"
                        @dataTableSelectionChange="testDTSC" :disabled-mode="false"
@@ -210,6 +210,8 @@
       Clipboard,
     },
     props: {
+      form_template_id:[Number,String],
+      detailId:[Number,String],
       designer: Object,
       globalDsv: {
         type: Object,

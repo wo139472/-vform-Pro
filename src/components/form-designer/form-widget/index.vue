@@ -11,11 +11,11 @@
         <transition-group name="fade" tag="div" class="form-widget-canvas">
           <template v-for="(widget, index) in designer.widgetList">
             <template v-if="'container' === widget.category">
-              <component :is="getWidgetName(widget)" :widget="widget" :designer="designer" :key="widget.id" :parent-list="designer.widgetList"
+              <component :is="getWidgetName(widget)" :detailId="detailId" :form_template_id="form_template_id" :widget="widget" :designer="designer" :key="widget.id" :parent-list="designer.widgetList"
                                 :index-of-parent-list="index" :parent-widget="null"></component>
             </template>
             <template v-else>
-              <component :is="getWidgetName(widget)" :field="widget" :designer="designer" :key="widget.id" :parent-list="designer.widgetList"
+              <component :is="getWidgetName(widget)" :detailId="detailId" :form_template_id="form_template_id" :field="widget" :designer="designer" :key="widget.id" :parent-list="designer.widgetList"
                             :index-of-parent-list="index" :parent-widget="null" :design-state="true"></component>
             </template>
           </template>
@@ -44,6 +44,8 @@
     props: {
       designer: Object,
       formConfig: Object,
+      form_template_id:[Number,String],
+      detailId:[Number,String],
       optionData: { //prop传入的选项数据
         type: Object,
         default: () => ({})
@@ -124,6 +126,7 @@
     created() {
       //this.designer.initDesigner( !!this.getDesignerConfig().resetFormJson )  //此行代码已移动到form-designer，以便提前赋值formConfig！！
       this.designer.loadPresetCssCode( this.getDesignerConfig().presetCssCode )
+
     },
     mounted() {
       this.disableFirefoxDefaultDrop()  /* 禁用Firefox默认拖拽搜索功能!! */

@@ -15,7 +15,7 @@
            @submit.native.prevent>
     <template v-for="(widget, index) in widgetList">
       <template v-if="'container' === widget.category">
-        <component :is="getContainerWidgetName(widget)" :widget="widget" :key="widget.id" :parent-list="widgetList"
+        <component :is="getContainerWidgetName(widget)" :form_template_id="form_template_id" :detailId="detailId" :widget="widget" :key="widget.id" :parent-list="widgetList"
                         :index-of-parent-list="index" :parent-widget="null">
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
@@ -24,7 +24,7 @@
         </component>
       </template>
       <template v-else>
-        <component :is="getWidgetName(widget)" :field="widget" :form-model="formDataModel" :designer="null" :key="widget.id" :parent-list="widgetList"
+        <component :is="getWidgetName(widget)" :form_template_id="form_template_id" :detailId="detailId" :field="widget" :form-model="formDataModel" :designer="null" :key="widget.id" :parent-list="widgetList"
                       :index-of-parent-list="index" :parent-widget="null">
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
@@ -69,6 +69,8 @@
       ...FieldComponents,
     },
     props: {
+      form_template_id:[Number,String],
+      detailId:[Number,String],
       formJson: { //prop传入的表单JSON配置
         type: Object,
         default: () => buildDefaultFormJson()

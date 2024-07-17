@@ -10,21 +10,21 @@
               <el-collapse v-model="widgetActiveCollapseNames" class="setting-collapse">
                 <el-collapse-item name="1" v-if="showCollapse(commonProps)" :title="i18nt('designer.setting.commonSetting')">
                   <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+                    <component v-if="hasPropEditor(propName, editorName)" :form_template_id="form_template_id" :detailId="detailId" :is="getPropEditor(propName, editorName)"
                                :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
 
                 <el-collapse-item name="2" v-if="showCollapse(advProps)" :title="i18nt('designer.setting.advancedSetting')">
                   <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+                    <component v-if="hasPropEditor(propName, editorName)" :detailId="detailId" :form_template_id="form_template_id" :is="getPropEditor(propName, editorName)"
                                :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
 
                 <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)" :title="i18nt('designer.setting.eventSetting')">
                   <template v-for="(editorName, propName) in eventProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+                    <component v-if="hasPropEditor(propName, editorName)" :detailId="detailId" :form_template_id="form_template_id" :is="getPropEditor(propName, editorName)"
                                :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
                                :event-handled="getEventHandled(propName)"></component>
                   </template>
@@ -40,21 +40,21 @@
               <el-collapse v-model="widgetActiveCollapseNames" class="setting-collapse">
                 <el-collapse-item name="1" v-if="showCollapse(commonProps)" :title="i18nt('designer.setting.commonSetting')">
                   <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+                    <component v-if="hasPropEditor(propName, editorName)" :detailId="detailId" :form_template_id="form_template_id" :is="getPropEditor(propName, editorName)"
                                :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
 
                 <el-collapse-item name="2" v-if="showCollapse(advProps)" :title="i18nt('designer.setting.advancedSetting')">
                   <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+                    <component v-if="hasPropEditor(propName, editorName)" :detailId="detailId" :form_template_id="form_template_id" :is="getPropEditor(propName, editorName)"
                                :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
 
                 <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)" :title="i18nt('designer.setting.eventSetting')">
                   <template v-for="(editorName, propName) in eventProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+                    <component v-if="hasPropEditor(propName, editorName)" :detailId="detailId" :form_template_id="form_template_id" :is="getPropEditor(propName, editorName)"
                                :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
                                :event-handled="getEventHandled(propName)"></component>
                   </template>
@@ -72,7 +72,7 @@
 
       <el-tab-pane v-if="!!designer" :label="i18nt('designer.hint.formSetting')" name="2">
         <el-scrollbar class="setting-scrollbar">
-          <form-setting :designer="designer" :form-config="formConfig"></form-setting>
+          <form-setting :form_template_id="form_template_id" :detailId="detailId" :designer="designer" :form-config="formConfig"></form-setting>
         </el-scrollbar>
       </el-tab-pane>
 
@@ -126,6 +126,8 @@
       ...PropertyEditors,
     },
     props: {
+      form_template_id:[Number,String],
+      detailId:[Number,String],
       designer: Object,
       selectedWidget: Object,
       formConfig: Object,

@@ -6,6 +6,9 @@
       v-model="fieldModel"
       :options="deptList"
       :defaultExpandLevel="3"
+      ref="fieldEditor"
+      v-show="!isReadMode"
+      class="full-width-input"
       :disabled="field.options.disabled"
       :clearable="field.options.clearable"
       :searchable="field.options.filterable" 
@@ -15,8 +18,7 @@
       :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
       @focus="handleFocusCustomEvent" 
       @blur.native.capture="handleBlurCustomEvent"
-      @change="handleChangeEvent"
-      :remote-method="remoteMethod"
+      @input="handleChangeEvent"
       :normalizer="(d)=>{return { id: d.id, label: d.name,children:d.children||undefined }}"
     />
     <!-- <el-select ref="fieldEditor" v-model="fieldModel" v-show="!isReadMode" class="full-width-input"
@@ -103,12 +105,12 @@
       allowDefaultFirstOption() {
         return !!this.field.options.filterable
       },
-      remoteMethod() {
-        // console.log("this.fieldModel==>",this.fieldModel)
-        let value = this.field.options.multiple ? (this.fieldModel.length > 0 ? this.fieldModel.join(',') : '') : this.fieldModel
-        this.syncUpdateFormModel(value)
-        // this.emitFieldDataChange(value, value)
-      },
+      // remoteMethod() {
+      //   console.log("this.fieldModel==>",this.fieldModel)
+      //   // let value = this.field.options.multiple ? (this.fieldModel.length > 0 ? this.fieldModel.join(',') : '') : this.fieldModel
+      //   // this.syncUpdateFormModel(value)
+      //   this.emitFieldDataChange(this.fieldModel)
+      // },
     },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
@@ -124,7 +126,7 @@
       this.buildFieldRules()
 
       this.handleOnCreated()
-      // this.getEmployee()
+
       this.getDeptList()
     },
 
@@ -138,6 +140,12 @@
     },
 
     methods: {
+      remoteMethod() {
+        console.log("this.fieldModel==>",this.fieldModel)
+        // let value = this.field.options.multiple ? (this.fieldModel.length > 0 ? this.fieldModel.join(',') : '') : this.fieldModel
+        // this.syncUpdateFormModel(value)
+        this.emitFieldDataChange(this.fieldModel)
+      },
       displayLabel() {
         // console.log("this.fieldModel==>",this.fieldModel)
         let resultContent = '--'
@@ -173,8 +181,8 @@
      * 获取部门列表
      */
       async getDeptList() {
-        const res = await axios.get('http://api-admin-park.lcsnfm.com.cn/dept/getDeptList',{ headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqd3RfeWgiLCJleHAiOjE3MjEyOTExNjUsInN1YiI6IllIIiwiYXVkIjoiZXZlcnkiLCJuYmYiOjE3MjA2ODYzNjUsImlhdCI6MTcyMDY4NjM2NSwianRpIjoxMDAwMSwidWlkIjoxLCJwYXJrX2NvZGUiOiIxMDAwMSJ9.8OC5d66nyMmoo34q7ZPoCJW0k5cE-bjhIKCBy6brmo0`}})
-        // const res = await this.$http.get('/dept/getDeptList')
+        // const res = await axios.get('http://api-admin-park.lcsnfm.com.cn/dept/getDeptList',{ headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqd3RfeWgiLCJleHAiOjE3MjEyOTExNjUsInN1YiI6IllIIiwiYXVkIjoiZXZlcnkiLCJuYmYiOjE3MjA2ODYzNjUsImlhdCI6MTcyMDY4NjM2NSwianRpIjoxMDAwMSwidWlkIjoxLCJwYXJrX2NvZGUiOiIxMDAwMSJ9.8OC5d66nyMmoo34q7ZPoCJW0k5cE-bjhIKCBy6brmo0`}})
+        const res = await this.$http.get('/dept/getDeptList')
         if(res.data.code == 0){
           this.deptList = toTreeData(res.data.data, 'id', 'pid');
           this.originDept = res.data.data

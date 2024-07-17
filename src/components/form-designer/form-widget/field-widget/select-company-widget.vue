@@ -149,8 +149,8 @@
         }, 200);
       },
       async getCompany(company_name){
-        const res = await axios.get('http://api-admin-park.lcsnfm.com.cn/company/index',{ headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqd3RfeWgiLCJleHAiOjE3MjEyOTExNjUsInN1YiI6IllIIiwiYXVkIjoiZXZlcnkiLCJuYmYiOjE3MjA2ODYzNjUsImlhdCI6MTcyMDY4NjM2NSwianRpIjoxMDAwMSwidWlkIjoxLCJwYXJrX2NvZGUiOiIxMDAwMSJ9.8OC5d66nyMmoo34q7ZPoCJW0k5cE-bjhIKCBy6brmo0`}},{params:{...company_name,limit:20,status:1}})
-        // const res = await this.$http.get('/company/index',{params:{...company_name,limit:20,status:1}})
+        // const res = await axios.get('http://api-admin-park.lcsnfm.com.cn/company/index',{ headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqd3RfeWgiLCJleHAiOjE3MjEyOTExNjUsInN1YiI6IllIIiwiYXVkIjoiZXZlcnkiLCJuYmYiOjE3MjA2ODYzNjUsImlhdCI6MTcyMDY4NjM2NSwianRpIjoxMDAwMSwidWlkIjoxLCJwYXJrX2NvZGUiOiIxMDAwMSJ9.8OC5d66nyMmoo34q7ZPoCJW0k5cE-bjhIKCBy6brmo0`}},{params:{...company_name,limit:20,status:1}})
+        const res = await this.$http.get('/company/index',{params:{...company_name,limit:20,status:1}})
         if(res.data.code == 0){
           const {data} = res.data
           this.companyLoading = false
